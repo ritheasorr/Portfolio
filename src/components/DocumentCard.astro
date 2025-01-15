@@ -1,0 +1,58 @@
+---
+import type { Documentlist } from '../lib/documents';
+import PlayButton from './PlayButton.astro';
+
+interface Props{
+    document : Documentlist;
+}
+
+const { document } = Astro.props;
+---
+
+<a 
+href={document.documentlink} 
+target="_blank" 
+rel="noopener noreferrer" 
+class="document-card p-4 flex-col items-center group relative transition-all duration-300 overflow-hidden gap-5 rounded-md shadow-lg hover:shadow-xl outline-none bg-zinc-500/5 hover:bg-zinc-500/20 focus:bg-zinc-500/20" 
+
+transition:name={`document ${document.id} box`}>
+    <div class="w-40">
+        <div class="relative group mx-auto h-40 w-full flex-none shadow-lg">
+            <img 
+            src={document.url}
+            alt={document.title}
+            class="object-cover h-full w-full rounded-md shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]" 
+            transition:name={`document ${document.id} image`} />
+            <div class="absolute right-2 bottom-2 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all" transition:name={`document ${document.id} play`}>
+                <PlayButton />
+            </div>
+        </div>
+        <div class="pt-2">
+            <div class="font-bold block truncate" transition:name={`document ${document.id} title`}>
+                {document.title}
+            </div>
+            <div class="text-white-400 text-xs">
+                {document.author}
+            </div>
+        </div>
+    </div>
+</a>
+
+
+<script type="module">
+    // Function to generate random color
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+  
+    // Set random color to the document card
+    document.querySelectorAll('.document-card').forEach(card => {
+      const color = getRandomColor();
+      card.style.backgroundColor = color;
+    });
+  </script>

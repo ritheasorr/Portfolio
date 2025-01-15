@@ -1,0 +1,58 @@
+---
+import PlayButton from './PlayButton.astro';
+import type { Project } from '../lib/projects';
+import { getRandomColor } from '../lib/randomcolors';
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+---
+
+<a
+  href={project.url}
+  target="_blank"
+  rel="noopener noreferrer" 
+  class="playlist-item flex group relative transition-all duration-300 overflow-hidden items-center gap-5 rounded-md shadow-lg hover:shadow-xl outline-none bg-zinc-500/30 w-80"
+  style={`--random-color: ${getRandomColor()};`}
+>
+  <div class="h-20 w-20">
+    <img
+      src={project.cover}
+      alt={project.title}
+      class="object-cover h-full w-full shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]"
+    />
+  </div>
+  <div class="font-bold block">
+    {project.title}
+  </div>
+  <div
+    class="absolute right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+  >
+    <PlayButton />
+  </div>
+</a>
+
+<script type="module">
+  // Function to generate random color
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  // Assign initial random colors and hover colors dynamically
+  document.querySelectorAll('.playlist-item').forEach(card => {
+    const initialColor = getRandomColor();
+    const hoverColor = getRandomColor();
+    card.style.backgroundColor = initialColor;
+    card.addEventListener('mouseover', () => {
+      card.style.backgroundColor = hoverColor;
+    });
+    card.addEventListener('mouseout', () => {
+      card.style.backgroundColor = initialColor;
+    });
+  });
+</script>
