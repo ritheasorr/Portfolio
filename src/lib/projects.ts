@@ -10,7 +10,7 @@ export const projects: Project[] = [
     {
         id: "1",
         title: "E-commerce",
-        url: "https://ecommerceflutterproject.netlify.app/#/login",
+        url: "https://ecommerceflutterproject1.netlify.app/#/login",
         author: ["Ritheasor H. Sreng"],
         cover: "https://res.cloudinary.com/dafudehxr/image/upload/f_auto,q_auto/s0pqwxompf2kpzjuyw2r",
     },
